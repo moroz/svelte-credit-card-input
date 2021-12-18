@@ -5,7 +5,6 @@
   export let value = "";
   let placeholder = "MM/YY";
   let input;
-  let maskedValue = "";
 
   function onChange(e: Event) {
     const target = e.target as HTMLInputElement;
@@ -21,7 +20,6 @@
       value = "1";
     }
     input.value = maskValueToPlaceholder(value, placeholder);
-    maskedValue = maskValueToPlaceholder(value, placeholder);
   }
 </script>
 
@@ -38,11 +36,10 @@
       bind:this={input}
       on:input={onChange}
       on:change={onChange}
-      value={maskedValue}
     />
     <span class="mask"
-      ><span class="transparent">{maskedValue}</span>{placeholder.substring(
-        maskedValue.length
+      ><span class="transparent">{input?.value}</span>{placeholder.substring(
+        input?.value.length
       )}</span
     >
   </div>
