@@ -4,21 +4,29 @@
   export let initialPlaceholder = "0000 0000 0000 0000";
   export let id: string;
 
+  export let value = "";
   let placeholder = initialPlaceholder;
-  let value = "";
+  let input;
+
+  // Explicitly refresh masked value; otherwise Svelte would not trigger
+  // reactivity if we assign state to the same value again;
+  function refresh() {
+    input.value = maskValueToPlaceholder(value, placeholder);
+  }
 
   function onChange(event: Event) {
     const target = event.target as HTMLInputElement;
     value = target.value.replace(/[^\d]/g, "");
-    if (!value) placeholder = initialPlaceholder;
+    refresh();
   }
-
-  $: maskedValue = maskValueToPlaceholder(value, placeholder);
 
   function onPaste(event: ClipboardEvent) {
     event.preventDefault();
     value = event.clipboardData.getData("text").replace(/[^\d]/g, "");
+    refresh();
   }
+
+  $: placeholder = initialPlaceholder;
 </script>
 
 <div class="masked-input-field">
@@ -27,16 +35,18 @@
     <input name={id} hidden {value} />
     <input
       type="text"
-      value={maskedValue}
       maxlength={placeholder.length}
       {id}
+      inputmode="numeric"
+      pattern="[\d\s]+"
+      bind:this={input}
       on:change={onChange}
       on:input={onChange}
       on:paste={onPaste}
     />
     <span class="mask"
-      ><span class="transparent">{maskedValue}</span>{placeholder.substring(
-        maskedValue.length
+      ><span class="transparent">{input?.value}</span>{placeholder.substring(
+        input?.value.length
       )}</span
     >
   </div>
