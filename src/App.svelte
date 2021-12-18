@@ -12,6 +12,5 @@
   <form>
     <CardNumberField id="credit_card_no" bind:value={formData.creditCardNo} />
     <ExpirationDateField id="valid_thru" bind:value={formData.validThru} />
-    <p>{formData.creditCardNo}</p>
   </form>
 </div>

@@ -8,7 +8,7 @@ export function maskValueToPlaceholder(value: string, placeholder: string) {
   while (valueChars.length) {
     const nextChar = placeholderChars.shift();
     if (!nextChar) return result;
-    if (nextChar === " ") result += " ";
+    if (["/", " "].includes(nextChar)) result += nextChar;
     else {
       result += valueChars.shift();
     }
