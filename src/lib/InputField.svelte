@@ -1,15 +1,31 @@
 <script lang="ts">
-  export let placeholder = "0000 0000 0000 0000";
+  export let initialPlaceholder = "0000 0000 0000 0000";
   export let id: string;
 
+  let placeholder = initialPlaceholder;
   let value = "";
   let maskedValue = "";
 
   function onChange(event: Event) {
     const target = event.target as HTMLInputElement;
-    console.log(target.value);
     value = target.value.replace(/[^\d]/g, "");
-    maskedValue = value.match(/.{1,4}/g).join(" ");
+    maskedValue = maskValueToPlaceholder(value, placeholder);
+    if (!value) placeholder = initialPlaceholder;
+  }
+
+  function maskValueToPlaceholder(value: string, placeholder: string) {
+    let result = "";
+    const placeholderChars = placeholder.split("");
+    const valueChars = value.split("");
+    while (valueChars.length) {
+      const nextChar = placeholderChars.shift();
+      if (!nextChar) return result;
+      if (nextChar === " ") result += " ";
+      else {
+        result += valueChars.shift();
+      }
+    }
+    return result;
   }
 
   function maskText(value: string, placeholder: string) {
@@ -38,7 +54,7 @@
 </div>
 
 <style lang="sass">
-  @import "./css/_variables.sass"
+  @import "../css/_variables.sass"
 
   .label
     display: block
@@ -46,18 +62,19 @@
   .masked-input-group
     position: relative
     background: white
-    border: 1px solid
     display: inline-flex
+    border: 1px solid black
+    border-radius: 3px
 
     .mask, input
       height: 2.5rem
       line-height: 2.5rem
       font-size: 1.2rem
-      border: 0
-      outline: 0
       padding: 0 .5rem
       font-weight: bold
       font-family: $font-monospace
+      border-radius: 3px
+      border: 0
 
     .mask
       position: absolute
