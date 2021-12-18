@@ -6,13 +6,18 @@
 
   let placeholder = initialPlaceholder;
   let value = "";
-  let maskedValue = "";
 
   function onChange(event: Event) {
     const target = event.target as HTMLInputElement;
     value = target.value.replace(/[^\d]/g, "");
-    maskedValue = maskValueToPlaceholder(value, placeholder);
     if (!value) placeholder = initialPlaceholder;
+  }
+
+  $: maskedValue = maskValueToPlaceholder(value, placeholder);
+
+  function onPaste(event: ClipboardEvent) {
+    event.preventDefault();
+    value = event.clipboardData.getData("text").replace(/[^\d]/g, "");
   }
 </script>
 
@@ -27,6 +32,7 @@
       {id}
       on:change={onChange}
       on:input={onChange}
+      on:paste={onPaste}
     />
     <span class="mask"
       ><span class="transparent">{maskedValue}</span>{placeholder.substring(
