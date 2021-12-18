@@ -14,13 +14,6 @@
     maskedValue = maskValueToPlaceholder(value, placeholder);
     if (!value) placeholder = initialPlaceholder;
   }
-
-  function maskText(value: string, placeholder: string) {
-    if (maskedValue.length > placeholder.length) return "";
-    return (
-      " ".repeat(maskedValue.length) + placeholder.substring(maskedValue.length)
-    );
-  }
 </script>
 
 <div class="masked-input-field">
@@ -35,7 +28,11 @@
       on:change={onChange}
       on:input={onChange}
     />
-    <span class="mask">{maskText(value, placeholder)}</span>
+    <span class="mask"
+      ><span class="transparent">{maskedValue}</span>{placeholder.substring(
+        maskedValue.length
+      )}</span
+    >
   </div>
 </div>
 
@@ -71,6 +68,9 @@
       pointer-events: none
       white-space: pre
       color: #aaa
+
+    .transparent
+      opacity: 0
 
     input
       background: transparent
