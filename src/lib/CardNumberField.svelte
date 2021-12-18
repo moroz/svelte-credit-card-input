@@ -46,7 +46,6 @@
     position: relative
     background: white
     display: inline-flex
-    border: 1px solid black
     border-radius: 3px
 
     .mask, input
@@ -54,7 +53,6 @@
       line-height: 2.5rem
       font-size: 1.2rem
       padding: 0 .5rem
-      font-weight: bold
       font-family: $font-monospace
       border-radius: 3px
       border: 0
@@ -62,7 +60,7 @@
     .mask
       position: absolute
       top: 0
-      left: 0
+      left: 1px
       bottom: 0
       right: 0
       pointer-events: none
@@ -75,4 +73,10 @@
     input
       background: transparent
       width: min-content
+      border: 1px solid
+
+  @media not all and (min-resolution: .001dpcm)
+    @supports (-webkit-appearance: none)
+      .mask
+        left: 3px !important
 </style>
