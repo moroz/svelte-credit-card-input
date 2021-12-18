@@ -38,6 +38,8 @@
 </div>
 
 <style lang="sass">
+  @import "./css/_variables.sass"
+
   .label
     display: block
 
@@ -55,6 +57,7 @@
       outline: 0
       padding: 0 .5rem
       font-weight: bold
+      font-family: $font-monospace
 
     .mask
       position: absolute
@@ -68,7 +71,6 @@
 
     input
       background: transparent
-      font-family: inherit
       width: min-content
 
       &::placeholder
