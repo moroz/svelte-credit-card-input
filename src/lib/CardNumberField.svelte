@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { maskValueToPlaceholder } from "../helpers/maskHelpers";
+
   export let initialPlaceholder = "0000 0000 0000 0000";
   export let id: string;
 
@@ -11,21 +13,6 @@
     value = target.value.replace(/[^\d]/g, "");
     maskedValue = maskValueToPlaceholder(value, placeholder);
     if (!value) placeholder = initialPlaceholder;
-  }
-
-  function maskValueToPlaceholder(value: string, placeholder: string) {
-    let result = "";
-    const placeholderChars = placeholder.split("");
-    const valueChars = value.split("");
-    while (valueChars.length) {
-      const nextChar = placeholderChars.shift();
-      if (!nextChar) return result;
-      if (nextChar === " ") result += " ";
-      else {
-        result += valueChars.shift();
-      }
-    }
-    return result;
   }
 
   function maskText(value: string, placeholder: string) {
@@ -43,7 +30,6 @@
     <input
       type="text"
       value={maskedValue}
-      {placeholder}
       maxlength={placeholder.length}
       {id}
       on:change={onChange}
@@ -89,10 +75,4 @@
     input
       background: transparent
       width: min-content
-
-      &::placeholder
-        color: #aaa
-
-      &:placeholder-shown + .mask
-        opacity: 0
 </style>

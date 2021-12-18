@@ -1,5 +1,9 @@
 <script lang="ts">
-  import InputField from "./lib/InputField.svelte";
+  import CardNumberField from "./lib/CardNumberField.svelte";
 </script>
 
-<InputField id="credit_card_no" />
+<div class="layout">
+  <form>
+    <CardNumberField id="credit_card_no" />
+  </form>
+</div>
