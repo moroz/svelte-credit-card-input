@@ -23,7 +23,7 @@
       <InputField
         name="cardholderName"
         bind:value={formData.cardholderName}
-        label="Cardholder name"
+        label="Name on card"
       />
       <CardNumberField
         id="creditCardNo"

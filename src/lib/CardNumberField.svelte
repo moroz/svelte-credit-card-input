@@ -17,7 +17,7 @@
 
 <div class="masked-input-field">
   <input name={id} hidden {value} />
-  <label class="label" for={id}>Credit card number</label>
+  <label class="label" for={id}>Card number</label>
   <div class="masked-input-group">
     <input
       type="text"
