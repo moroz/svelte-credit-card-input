@@ -1,6 +1,27 @@
+@use "sass:math"
+
 $font-monospace: "PT Mono", monospace, monospace
 $font-sans: system-ui, -apple-system, BlinkMacSystemFont, sans-serif
 $input-height: 2.5rem
 $input-font-size: 1.2rem
 $input-border-radius: 0
-$column-gap: 1.5rem
+$column-gap: 1rem
+$card-width: 25rem
+$body-bg: #f8f8f8
+
+$card-ratio-width: 85.6
+$card-ratio-height: 53.98
+$card-ratio: math.div($card-ratio-height, $card-ratio-width)
+$card-height: $card-width * $card-ratio
+
+@function relative-to-card($milimeters)
+  @return math.div($milimeters, $card-ratio-width) * $card-width
+
+$chip-width: relative-to-card(12)
+$chip-y: relative-to-card(18)
+$chip-x: relative-to-card(8)
+
+$cardholder-y: $chip-y + relative-to-card(13)
+$cardholder-x: $chip-x
+
+$card-radius: relative-to-card(2.9)

@@ -1,11 +1,11 @@
 <script lang="ts">
   import { maskValueToPlaceholder } from "../helpers/maskHelpers";
 
-  export let initialPlaceholder = "0000 0000 0000 0000";
+  export let mask = "0000 0000 0000 0000";
   export let id: string;
 
   export let value = "";
-  let placeholder = initialPlaceholder;
+  let placeholder = mask;
   let input;
 
   function onChange(event: Event) {
@@ -13,8 +13,6 @@
     value = target.value.replace(/[^\d]/g, "");
     input.value = maskValueToPlaceholder(value, placeholder);
   }
-
-  $: placeholder = initialPlaceholder;
 </script>
 
 <div class="masked-input-field">
